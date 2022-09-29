@@ -30,8 +30,8 @@ foreach ($newuser in $ADUsers)
          -Enabled $true `
          -ChangePasswordAtLogon $true `
          -DisplayName "$Lastname, $Firstname" `
-          -Department "$Department" `
-          -Path $OU `
-          -AccountPassword (Convertto-securestring $Password -AsPlainText -Force)
+         -Department "$Department" `
+         -Path $OU `
+         -AccountPassword (Convertto-securestring $Password -AsPlainText -Force)
       }
 }
