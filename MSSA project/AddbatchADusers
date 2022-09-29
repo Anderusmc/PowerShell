@@ -1,0 +1,37 @@
+#enter CSV file path to import
+$ADUsers = Import-csv c:\batch\newusers.CSV
+
+foreach ($newuser in $ADUsers)
+{
+      $Username = $newuser.username
+      $Password = $newuser.password
+      $Firstname = $newuser.firstname 
+      $Lastname = $newuser.lastname 
+      $Department = $newuser.department 
+      $OU = $newuser.ou 
+
+      #check for existing accounts
+
+      if (Get-Aduser -Filter {SamAccountName -eq $username})
+      {
+         #Message if user does exist
+         Write-Warning "A ADuser account $Username already exists in AD."
+      }
+      else
+      {
+         #If ADuser account doesn't exist create account in AD
+      
+         New-Aduser `
+         -SamAccountName "$Username" `
+         -UserPrincipalName "$username@adatum.com" `
+         -Name "$Firstname $Lastname" `
+         -GivenName "$Firstname" `
+         -Surname "$Lastname" `
+         -Enabled $true `
+         -ChangePasswordAtLogon $true `
+         -DisplayName "$Lastname, $Firstname" `
+          -Department "$Department" `
+          -Path $OU `
+          -AccountPassword (Convertto-securestring $Password -AsPlainText -Force)
+      }
+}
