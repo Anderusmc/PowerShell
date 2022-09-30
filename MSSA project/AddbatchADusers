@@ -8,7 +8,9 @@ foreach ($newuser in $ADUsers)
       $Firstname = $newuser.firstname 
       $Lastname = $newuser.lastname 
       $Department = $newuser.department 
-      $OU = $newuser.ou 
+      $OU = $newuser.ou
+      $Company = $newuser.company
+      $City = $newuser.city
 
       #check for existing accounts
 
@@ -29,9 +31,10 @@ foreach ($newuser in $ADUsers)
          -Surname "$Lastname" `
          -Enabled $true `
          -ChangePasswordAtLogon $true `
-         -DisplayName "$Lastname, $Firstname" `
+         -DisplayName "$Firstname $Lastname" `
          -Department "$Department" `
-         -Path $OU `
+         -Path "$OU" `
+         -City "City" `
          -AccountPassword (Convertto-securestring $Password -AsPlainText -Force)
       }
 }
