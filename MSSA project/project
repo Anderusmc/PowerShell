@@ -1,1 +1,0 @@
- Get-ADUser -Filter * -Properties LastLogonDate | Where-Object {$_.LastLogonDate -le (Get-Date).AddDays(-30)}
