@@ -1,4 +1,6 @@
-#enter CSV file path to import
+#Script will create new Adusers in batch when using a populated spreadsheet.
+#enter CSV file path to import. Spreadsheet needs the following columns: username, password, firstname, lastname, department, ou, company, city.
+
 $ADUsers = Import-csv c:\batch\newusers.CSV
 
 foreach ($newuser in $ADUsers)
